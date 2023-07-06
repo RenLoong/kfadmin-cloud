@@ -37,7 +37,10 @@ function pe(\Throwable $th){
     ]);
 }
 try {
-
+    # 静态链式调用
+    # 请求类(Request)::接口类(captcha)->接口方法(captchaCode)->....->调用云(cloud)->发送请求(send)
+    $data=Request::captcha()->captchaCode()->cloud()->send();
+    p($data);
     #获取验证码
     $request=new CaptchaRequest();
     $request->captchaCode();
