@@ -11,6 +11,7 @@ use YcOpen\CloudService\Validator;
  */
 class MiniprojectRequest extends Request
 {
+    public $nodeBaseURL='http://miniproject-upload.kfadmin.net/';
     /**
      * 上传小程序或者密钥
      * action proejct：小程序包，privatekey：上传密钥
@@ -63,6 +64,7 @@ class MiniprojectRequest extends Request
     public function setConfig()
     {
         $this->setUrl('Miniproject/setConfig');
+        $this->setMethod('POST');
         $validator=new Validator;
         $validator->rules([
             'appid'=>'required',
@@ -83,6 +85,7 @@ class MiniprojectRequest extends Request
     public function getUploadToken()
     {
         $this->setUrl('Miniproject/getUploadToken');
+        $this->setMethod('POST');
         $validator=new Validator;
         $validator->rules([
             'appid'=>'required',
@@ -99,7 +102,11 @@ class MiniprojectRequest extends Request
      */
     public function miniprojectUpload()
     {
-        $this->setBaseUrl('http://wxmp-upload.kf.kaifa.cc/');
+        $base_url=getenv('YC_NODE_SERVICE_BASE_URL');
+        if(!$base_url){
+            $base_url=$this->nodeBaseURL;
+        }
+        $this->setBaseUrl($base_url);
         $this->setUrl('upload/index');
         $validator=new Validator;
         $validator->rules([
@@ -115,7 +122,11 @@ class MiniprojectRequest extends Request
      */
     public function miniprojectPreview()
     {
-        $this->setBaseUrl('http://wxmp-upload.kf.kaifa.cc/');
+        $base_url=getenv('YC_NODE_SERVICE_BASE_URL');
+        if(!$base_url){
+            $base_url=$this->nodeBaseURL;
+        }
+        $this->setBaseUrl($base_url);
         $this->setUrl('upload/preview');
         $validator=new Validator;
         $validator->rules([
@@ -128,11 +139,15 @@ class MiniprojectRequest extends Request
      * 预览小程序包二维码
      * appid 小程序appid
      * name 应用标识
-     * @return MiniprojectRequest
+     * @return string
      */
     public function miniprojectPreviewQrcode()
     {
-        $this->setBaseUrl('http://wxmp-upload.kf.kaifa.cc/');
+        $base_url=getenv('YC_NODE_SERVICE_BASE_URL');
+        if(!$base_url){
+            $base_url=$this->nodeBaseURL;
+        }
+        $this->setBaseUrl($base_url);
         $this->setUrl('preview/index');
         $validator=new Validator;
         $validator->rules([
@@ -140,6 +155,7 @@ class MiniprojectRequest extends Request
             'name'=>'required',
         ]);
         $this->validator=$validator;
-        return $this;
+        return $base_url.'preview/index?'.http_build_query($this->query);
+        // return $this;
     }
 }
