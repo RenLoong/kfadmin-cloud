@@ -78,7 +78,7 @@ class MiniprojectRequest extends Request
      * name 应用标识
      * preview_desc 小程序预览描述，不传则不生成预览二维码
      * type wxmp:小程序平台
-     * @return PluginRequest
+     * @return MiniprojectRequest
      */
     public function getUploadToken()
     {
