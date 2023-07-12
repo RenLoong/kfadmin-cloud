@@ -17,6 +17,7 @@ class Request
     protected $validator;
     protected $file;
     protected $isDownFile = false;
+    protected $timeout = 10;
     public function __construct()
     {
         $this->siteinfo_file = base_path('/config/site.json');
@@ -49,7 +50,7 @@ class Request
         $option = [
             'base_uri' => $this->baseUrl,
             'headers' => $this->headers,
-            'timeout' => 10,
+            'timeout' => $this->timeout,
         ];
         # 判断url是否为http(s)开头
         if (preg_match('/^http(s)?:\/\//', $this->url)) {
@@ -82,6 +83,16 @@ class Request
     public function setUrl(string $url)
     {
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * 设置timeout
+     * @param int $timeout
+     * @return Request
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
         return $this;
     }
     /**

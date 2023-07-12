@@ -74,6 +74,16 @@ namespace YcOpen\CloudService {
             /** @var \YcOpen\CloudService\Request\UserRequest $instance */
             return $instance;
         }
+        /**
+         * 小程序相关接口
+         * @access public
+         * @return \YcOpen\CloudService\Request\MiniprojectRequest
+         */
+        public static function Miniproject()
+        {
+            /** @var \YcOpen\CloudService\Request\MiniprojectRequest $instance */
+            return $instance;
+        }
     }
    
 }

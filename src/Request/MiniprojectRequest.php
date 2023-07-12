@@ -107,6 +107,7 @@ class MiniprojectRequest extends Request
             $base_url=$this->nodeBaseURL;
         }
         $this->setBaseUrl($base_url);
+        $this->setTimeout(0);
         $this->setUrl('upload/index');
         $validator=new Validator;
         $validator->rules([
@@ -127,6 +128,7 @@ class MiniprojectRequest extends Request
             $base_url=$this->nodeBaseURL;
         }
         $this->setBaseUrl($base_url);
+        $this->setTimeout(0);
         $this->setUrl('upload/preview');
         $validator=new Validator;
         $validator->rules([
