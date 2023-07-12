@@ -65,6 +65,16 @@ class Request
         return $client->request($this->method, $this->url, $options);
     }
     /**
+     * 设置BaseUrl
+     * @param string $baseUrl
+     * @return Request
+     */
+    public function setBaseUrl(string $baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+        return $this;
+    }
+    /**
      * 设置请求地址
      * @param string $url
      * @return Request
