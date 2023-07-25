@@ -21,6 +21,9 @@ class Request
     public function __construct()
     {
         $this->siteinfo_file = base_path('/config/site.json');
+        if(!file_exists($this->siteinfo_file)){
+            $this->siteinfo_file = base_path('/site.json');
+        }
         if (!is_dir(dirname($this->siteinfo_file))) {
             mkdir(dirname($this->siteinfo_file), 0777, true);
         }
