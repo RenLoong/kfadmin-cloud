@@ -17,7 +17,7 @@ class Request
     protected $validator;
     protected $file;
     protected $isDownFile = false;
-    protected $timeout = 10;
+    protected $timeout = 60;
     public function __construct()
     {
         $this->siteinfo_file = base_path('/config/site.json');
@@ -343,5 +343,13 @@ class Request
             throw new \Exception($name.'：请求类不存在');
         }
         return new $class(...$arguments);
+    }
+    /**
+     * 发送请求并返回响应结果
+     * @return DataModel|string|bool
+     */
+    public function response()
+    {
+        return $this->cloud()->send();
     }
 }
