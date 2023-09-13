@@ -9,6 +9,9 @@ class Redis
     {
         if (class_exists('\Redis')) {
             $config = include root_path('config') . 'cache.php';
+            if (!isset($config['stores']['redis'])) {
+                throw new \Exception('请配置config/cache.php redis');
+            }
             $redis = new \Redis;
             $redis->connect($config['stores']['redis']['host'], $config['stores']['redis']['port']);
             if ($config['stores']['redis']['password']) {
