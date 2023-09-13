@@ -23,7 +23,7 @@ class Request
     protected $timeout = 60;
     public function __construct(string $version = null)
     {
-        $this->siteinfo_file = base_path('/config/site.json');
+        $this->siteinfo_file = root_path('config') . 'site.json';
         if (!is_dir(dirname($this->siteinfo_file))) {
             mkdir(dirname($this->siteinfo_file), 0777, true);
         }
@@ -296,7 +296,11 @@ class Request
             throw new Exception\HttpException('未设置文件保存路径');
         }
         $client = new Client([
-            'timeout' => 0
+            'timeout' => 0,
+            'headers' => [
+                'Accept-Encoding' => 'gzip',
+            ],
+            'decode_content' => false
         ]);
         $response = $client->get($this->url);
 
