@@ -31,7 +31,8 @@ class Request
             $siteinfo = json_decode(file_get_contents($this->siteinfo_file), true);
             $this->setHeaders($siteinfo);
         }
-        $token = Redis::get('yc-cloud-service-token');
+        $root = basename(root_path());
+        $token = Redis::get('yc-cloud-service-token.' . $root);
         if ($token) {
             $this->setToken($token);
         }
