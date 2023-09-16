@@ -33,6 +33,9 @@ class Request
         }
         $root = basename(root_path());
         $token = Redis::get('yc-cloud-service-token.' . $root);
+        if (!$token) {
+            $token = Redis::get('yc-cloud-service-token');
+        }
         if ($token) {
             $this->setToken($token);
         }
