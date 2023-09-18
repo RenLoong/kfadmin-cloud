@@ -21,6 +21,7 @@ class Request
     protected $file;
     protected $isDownFile = false;
     protected $timeout = 60;
+    protected $tokenKey = 'yc-cloud-service-token';
     public function __construct(string $version = null)
     {
         $this->siteinfo_file = root_path('config') . 'site.json';
@@ -32,7 +33,8 @@ class Request
             $this->setHeaders($siteinfo);
         }
         $root = basename(root_path());
-        $token = Redis::get('yc-cloud-service-token.' . $root);
+        $this->tokenKey = 'yc-cloud-service-token.' . $root;
+        $token = Redis::get($this->tokenKey);
         if (!$token) {
             $token = Redis::get('yc-cloud-service-token');
         }
