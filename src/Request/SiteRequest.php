@@ -32,6 +32,19 @@ class SiteRequest extends Request
         return $this;
     }
     /**
+     * 获取网站信息
+     * @param mixed $query
+     * @return SystemUpdateRequest
+     */
+    public function getInfo(mixed $query = null)
+    {
+        $this->setUrl('Site/getInfo');
+        if ($query) {
+            $this->setQuery($query);
+        }
+        return $this;
+    }
+    /**
      * 设置响应数据模型
      * @return DataModel
      */
