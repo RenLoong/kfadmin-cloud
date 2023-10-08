@@ -54,7 +54,10 @@ class Request
                 $this->setHeader('channels-token', $channelsAuth['token']);
             }
         }
-        $this->setVersion($version);
+        if ($version) {
+            $this->version = $version;
+        }
+        $this->setVersion();
     }
     /**
      * 发送请求
@@ -111,10 +114,9 @@ class Request
      */
     public function setVersion(string $version = null)
     {
-        if (!$version) {
-            return $this;
+        if ($version) {
+            $this->version = $version;
         }
-        $this->version = $version;
         $this->baseUrl = $this->baseUrl . $this->version;
         return $this;
     }
